@@ -6,15 +6,20 @@ const prisma = new PrismaClient()
 async function main() {
   // ... you will write your Prisma Client queries here
 
-  const post = await prisma.post.create({
-    data: {
-      // 入力するところまで型で補完が効く、すごい
-      title: 'Prisma title',
-      author: {
-        // 既存のレコード（今回はリレーションされているUser）と接続するの柔軟でいい。見つからない場合例外スロー
-        connect: { email: 'sarah@prisma.io'}
-      }
-    }
+  // const post = await prisma.post.create({
+  //   data: {
+  //     // 入力するところまで型で補完が効く、すごい
+  //     title: 'Prisma title',
+  //     author: {
+  //       // 既存のレコード（今回はリレーションされているUser）と接続するの柔軟でいい。見つからない場合例外スロー
+  //       connect: { email: 'sarah@prisma.io'}
+  //     }
+  //   }
+  // })
+
+  const post = await prisma.post.update({
+    where: {id: 2},
+    data: { published: true },
   })
   console.log(post)
 
